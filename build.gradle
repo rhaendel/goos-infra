@@ -31,7 +31,7 @@ task createDockerfile(type: Dockerfile) {
 	from 'java:8'
 	runCommand 'apt-get update && apt-get install wget'
 	//runCommand "wget 'http://www.igniterealtime.org/downloads/download-landing.jsp?file=openfire/openfire_3_6_0a.tar.gz' "
-	runCommand "wget 'https://github.com/igniterealtime/Openfire/releases/download/v3.6.0a/openfire_src_3_6_0a.tar.gz' -O openfire_3_6_0a.tar.gz "
+	runCommand "wget 'https://github.com/igniterealtime/Openfire/releases/download/v3.6.0a/openfire_3_6_0a.tar.gz' -O openfire_3_6_0a.tar.gz "
 	runCommand 'tar xzf openfire_3_6_0a.tar.gz'
 	copyFile 'openfire.xml', '/openfire/conf/openfire.xml'
 	copyFile 'entrypoint.sh', '/entrypoint.sh'
@@ -48,7 +48,7 @@ task buildImage(type: DockerBuildImage) {
 
 task createContainer(type: DockerCreateContainer) {
 	containerName = "goos-openfire"
-	portBindings = ['5222:5222']
+	portBindings = ['5222:5222', '9090:9090']
 	targetImageId { "tma/goos-openfire" }
 }
 
